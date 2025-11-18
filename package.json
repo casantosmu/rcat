@@ -1,0 +1,53 @@
+{
+  "name": "rcat",
+  "version": "0.0.1",
+  "description": "Recursive cat tool that respects .gitignore",
+  "license": "MIT",
+  "repository": "casantosmu/rcat",
+  "author": {
+    "name": "Carlos Santos",
+    "email": "casantosmu@gmail.com",
+    "url": "https://casantosmu.com"
+  },
+  "type": "module",
+  "bin": {
+    "rcat": "./cli.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier . --check",
+    "format:fix": "prettier . --write"
+  },
+  "files": [
+    "cli.js"
+  ],
+  "keywords": [
+    "cli",
+    "cat",
+    "recursive",
+    "glob",
+    "gitignore",
+    "fs",
+    "read",
+    "print",
+    "terminal",
+    "files",
+    "output",
+    "stream"
+  ],
+  "dependencies": {
+    "globby": "^16.0.0",
+    "is-binary-path": "^3.0.0",
+    "meow": "^13.2.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "eslint": "^9.39.1",
+    "globals": "^16.5.0",
+    "prettier": "3.6.2"
+  }
+}
