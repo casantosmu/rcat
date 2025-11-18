@@ -2,7 +2,6 @@
 
 import path from "node:path";
 import fs from "node:fs";
-import { pipeline } from "node:stream/promises";
 import meow from "meow";
 import { globbyStream } from "globby";
 import isBinaryPath from "is-binary-path";
@@ -78,5 +77,12 @@ for await (const relativePath of stream) {
   console.log(`\n--- ${relativePath} ---`);
 
   const readStream = fs.createReadStream(absolutePath, "utf8");
-  await pipeline(readStream, process.stdout, { end: false });
+
+  for await (const chunk of readStream) {
+    const canWrite = process.stdout.write(chunk);
+
+    if (!canWrite) {
+      await new Promise((resolve) => process.stdout.once("drain", resolve));
+    }
+  }
 }
