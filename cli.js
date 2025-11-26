@@ -15,6 +15,7 @@ const cli = meow(
       --includes, -i  Glob patterns to include
       --excludes, -e  Glob patterns to exclude
       --depth,    -d  Maximum recursion depth
+      --dotfiles, -D  Include dotfiles (hidden files)
 
     Examples
       # Output all text files in the current directory
@@ -47,6 +48,11 @@ const cli = meow(
         type: "number",
         shortFlag: "d",
       },
+      dotfiles: {
+        type: "boolean",
+        shortFlag: "D",
+        default: false,
+      },
     },
   },
 );
@@ -64,6 +70,7 @@ const stream = globbyStream(cli.flags.includes, {
   followSymbolicLinks: false,
   gitignore: true,
   ignore: cli.flags.excludes,
+  dot: cli.flags.dotfiles, 
 });
 
 for await (const relativePath of stream) {
