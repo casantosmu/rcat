@@ -16,6 +16,7 @@ const cli = meow(
       --excludes, -e  Glob patterns to exclude
       --depth,    -d  Maximum recursion depth
       --dotfiles, -D  Include dotfiles (hidden files)
+      --list,     -l  Only list files without printing content
 
     Examples
       # Output all text files in the current directory
@@ -53,6 +54,11 @@ const cli = meow(
         shortFlag: "D",
         default: false,
       },
+      list: {
+        type: "boolean",
+        shortFlag: "l",
+        default: false,
+      },
     },
   },
 );
@@ -79,6 +85,11 @@ for await (const relativePath of stream) {
   const isBinary = isBinaryPath(absolutePath);
   if (isBinary) {
     continue;
+  }
+
+  if (cli.flags.list) {
+    console.log(relativePath);
+    continue; 
   }
 
   console.log(`\n--- ${relativePath} ---`);
